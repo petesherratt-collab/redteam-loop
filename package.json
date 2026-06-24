@@ -1,0 +1,26 @@
+{
+  "name": "redteam-loop",
+  "version": "0.1.0",
+  "description": "A multi-agent adversarial loop: a proposer drafts, a red team of models (Claude, Gemini, GPT/Codex) attacks, and critiques feed back until consensus.",
+  "type": "module",
+  "bin": {
+    "redteam-loop": "orchestrate.mjs"
+  },
+  "scripts": {
+    "redteam": "node orchestrate.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "keywords": [
+    "llm",
+    "red-team",
+    "multi-agent",
+    "adversarial",
+    "claude",
+    "gemini",
+    "codex",
+    "openrouter"
+  ]
+}
