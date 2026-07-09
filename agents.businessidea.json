@@ -1,0 +1,22 @@
+{
+  "_comment": "Business-idea attacker/proposer pair (prompts/business-idea-attacker.md, prompts/business-idea-proposer.md). Reuses the generic vibe-app pairing mode. Local `claude -p` for both roles by default (zero setup) — pass --tier frontier|good|open to swap both onto cross-vendor OpenRouter models. Run: `node orchestrate.mjs --config agents.businessidea.json --task \"...\"` (or --file). Converges when the attacker's strongest standing finding is at/below --floor (default LOW).",
+  "mode": "vibe-app",
+  "proposer": {
+    "name": "Business-idea proposer",
+    "adapter": "cli",
+    "command": ["claude", "-p"],
+    "promptVia": "stdin",
+    "systemFile": "prompts/business-idea-proposer.md",
+    "timeoutMs": 300000
+  },
+  "adversaries": [
+    {
+      "name": "Business-idea attacker",
+      "adapter": "cli",
+      "command": ["claude", "-p"],
+      "promptVia": "stdin",
+      "systemFile": "prompts/business-idea-attacker.md",
+      "timeoutMs": 300000
+    }
+  ]
+}

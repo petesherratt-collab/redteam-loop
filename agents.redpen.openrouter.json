@@ -1,0 +1,32 @@
+{
+  "_comment": "One subscription, full decorrelation. Everything runs through a single OPENROUTER_API_KEY (https://openrouter.ai/keys) — no local CLIs, no per-vendor logins. Claude proposes; Gemini and GPT attack as the Red Pen. This is the config to hand to someone else: they just set OPENROUTER_API_KEY and run. Model ids are concrete and current (alias slugs like *-latest are NOT valid on OpenRouter); swap any for an id from https://openrouter.ai/models. Run: node orchestrate.mjs --task \"...\" --config agents.redpen.openrouter.json --rounds 5",
+  "proposer": {
+    "name": "Claude (proposer)",
+    "adapter": "openrouter",
+    "model": "anthropic/claude-opus-4.8",
+    "max_tokens": 8000,
+    "timeoutMs": 300000,
+    "retries": 2,
+    "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when the Red Pen lands a real attack — but do not over-correct for objections in the noise band."
+  },
+  "adversaries": [
+    {
+      "name": "Red Pen · Gemini",
+      "adapter": "openrouter",
+      "model": "google/gemini-3.5-flash",
+      "systemFile": "prompts/red-pen.md",
+      "max_tokens": 8000,
+      "timeoutMs": 300000,
+      "retries": 2
+    },
+    {
+      "name": "Red Pen · GPT",
+      "adapter": "openrouter",
+      "model": "openai/gpt-5.5",
+      "systemFile": "prompts/red-pen.md",
+      "max_tokens": 8000,
+      "timeoutMs": 300000,
+      "retries": 2
+    }
+  ]
+}

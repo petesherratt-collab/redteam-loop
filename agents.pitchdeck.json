@@ -1,0 +1,22 @@
+{
+  "_comment": "Pitch-deck attacker/proposer pair (prompts/pitch-deck-attacker.md, prompts/pitch-deck-proposer.md). Reuses the generic vibe-app pairing mode. Local `claude -p` for both roles by default (zero setup) — pass --tier frontier|good|open to swap both onto cross-vendor OpenRouter models. Run: `node orchestrate.mjs --config agents.pitchdeck.json --task \"...\"` (or --file). Converges when the attacker's strongest standing finding is at/below --floor (default LOW).",
+  "mode": "vibe-app",
+  "proposer": {
+    "name": "Pitch-deck proposer",
+    "adapter": "cli",
+    "command": ["claude", "-p"],
+    "promptVia": "stdin",
+    "systemFile": "prompts/pitch-deck-proposer.md",
+    "timeoutMs": 300000
+  },
+  "adversaries": [
+    {
+      "name": "Pitch-deck attacker",
+      "adapter": "cli",
+      "command": ["claude", "-p"],
+      "promptVia": "stdin",
+      "systemFile": "prompts/pitch-deck-attacker.md",
+      "timeoutMs": 300000
+    }
+  ]
+}

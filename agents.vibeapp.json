@@ -1,0 +1,22 @@
+{
+  "_comment": "Vibe-app attacker/proposer pair (prompts/vibe-app-attacker.md, prompts/vibe-app-proposer.md). Claude plays both roles locally (zero setup, same install as agents.readiness.json) — swap either to \"openrouter\" + a \"model\" for a different vendor per role, which also avoids the same-family decorrelation warning. Run: `node orchestrate.mjs --mode vibe-app --config agents.vibeapp.json --task \"...\"` (or --file). Converges when the attacker's strongest standing finding is at/below --floor (default LOW).",
+  "mode": "vibe-app",
+  "proposer": {
+    "name": "Vibe-app proposer",
+    "adapter": "cli",
+    "command": ["claude", "-p"],
+    "promptVia": "stdin",
+    "systemFile": "prompts/vibe-app-proposer.md",
+    "timeoutMs": 300000
+  },
+  "adversaries": [
+    {
+      "name": "Vibe-app attacker",
+      "adapter": "cli",
+      "command": ["claude", "-p"],
+      "promptVia": "stdin",
+      "systemFile": "prompts/vibe-app-attacker.md",
+      "timeoutMs": 300000
+    }
+  ]
+}

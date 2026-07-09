@@ -1,0 +1,9 @@
+{
+  "_comment": "Single-agent intake gate — see prompts/readiness-check.md. No `adversaries`: readiness mode is one call, not a loop.",
+  "mode": "readiness",
+  "proposer": {
+    "name": "Claude (readiness gate)",
+    "adapter": "cli",
+    "command": ["claude", "-p"]
+  }
+}

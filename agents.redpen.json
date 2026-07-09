@@ -1,0 +1,39 @@
+{
+  "_comment": "The Red Pen adversary (prompts/red-pen.md) driving the local CLIs. Claude proposes; Gemini and Codex each attack in the Red Pen's voice, ending every turn with a SEVERITY + EFFORT line. Run in the default severity mode: `node orchestrate.mjs --task \"...\" --config agents.redpen.json --rounds 5`. The loop stops when both adversaries' strongest objection is at/below the --floor tier (default COSMETIC = nothing Critical or Important left). Same install/auth as agents.cli.json. For API transport instead, change each adapter to \"openrouter\" and add a \"model\".",
+  "proposer": {
+    "name": "Claude (proposer)",
+    "adapter": "cli",
+    "command": [
+      "claude",
+      "-p"
+    ],
+    "promptVia": "stdin",
+    "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when the Red Pen lands a real attack — but do not over-correct for objections in the noise band.",
+    "timeoutMs": 300000
+  },
+  "adversaries": [
+    {
+      "name": "Red Pen · Gemini",
+      "adapter": "cli",
+      "command": [
+        "gemini",
+        "--skip-trust"
+      ],
+      "promptVia": "stdin",
+      "systemFile": "prompts/red-pen.md",
+      "timeoutMs": 300000
+    },
+    {
+      "name": "Red Pen · Codex",
+      "adapter": "cli",
+      "command": [
+        "codex",
+        "exec",
+        "--skip-git-repo-check"
+      ],
+      "promptVia": "stdin",
+      "systemFile": "prompts/red-pen.md",
+      "timeoutMs": 300000
+    }
+  ]
+}

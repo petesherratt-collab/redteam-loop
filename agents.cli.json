@@ -1,9 +1,12 @@
 {
-  "_comment": "True multi-model red team using three LOCAL CLIs. Install + auth each first (see redteam/README.md): claude, gemini (`npm i -g @google/gemini-cli`), codex (`npm i -g @openai/codex`). All three are fed the prompt on stdin (promptVia: stdin) — the most portable form, and required on Windows where multi-line prompts can't be passed safely as arguments. If a tool ever ignores stdin on your platform, switch that agent to `\"promptVia\": \"arg\"` and append the prompt flag (e.g. command [\"gemini\",\"-p\"]).",
+  "_comment": "True multi-model red team using three LOCAL CLIs. Install + auth each first (see README.md): claude; gemini (`npm i -g @google/gemini-cli`, then run `gemini` once to log in OR set GEMINI_API_KEY); codex (`npm i -g @openai/codex`, then `codex login` OR set OPENAI_API_KEY). All three are fed the prompt on stdin (promptVia: stdin) — the most portable form, and required on Windows. `codex exec` needs --skip-git-repo-check to run outside an approved repo. If a tool ever ignores stdin on your platform, switch that agent to `\"promptVia\": \"arg\"` and append the prompt flag (e.g. command [\"gemini\",\"-p\"]).",
   "proposer": {
     "name": "Claude (proposer)",
     "adapter": "cli",
-    "command": ["claude", "-p"],
+    "command": [
+      "claude",
+      "-p"
+    ],
     "promptVia": "stdin",
     "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when given valid criticism."
   },
@@ -11,14 +14,21 @@
     {
       "name": "Gemini (red team)",
       "adapter": "cli",
-      "command": ["gemini"],
+      "command": [
+        "gemini",
+        "--skip-trust"
+      ],
       "promptVia": "stdin",
       "system": "You are an adversarial reviewer. Be specific, rigorous, and unsparing."
     },
     {
       "name": "Codex (red team)",
       "adapter": "cli",
-      "command": ["codex", "exec"],
+      "command": [
+        "codex",
+        "exec",
+        "--skip-git-repo-check"
+      ],
       "promptVia": "stdin",
       "system": "You are an adversarial reviewer focused on correctness, edge cases, and security. Cite the exact part you mean."
     }

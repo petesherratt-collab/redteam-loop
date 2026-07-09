@@ -1,0 +1,21 @@
+# Secrets
+.env
+.env.*
+*.key
+
+# Run transcripts (local output)
+runs/*.md
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Local machine settings
+.claude/settings.local.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

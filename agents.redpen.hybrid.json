@@ -1,0 +1,37 @@
+{
+  "_comment": "Hybrid Red Pen — decorrelated, no Google free tier. Claude proposes (local CLI); Gemini attacks via OpenRouter (reliable, sidesteps the dead free Gemini-CLI tier); Codex attacks via local CLI. Needs OPENROUTER_API_KEY (https://openrouter.ai/keys) for the Gemini adversary only; claude + codex stay local as before. The Gemini model is google/gemini-3.5-flash (confirmed-valid OpenRouter id, near-Pro reasoning, reliable). Swap for any current id at https://openrouter.ai/models — pick the literal id from a model's page; alias slugs like *-pro-latest are NOT valid here. Run: node orchestrate.mjs --task \"...\" --config agents.redpen.hybrid.json --rounds 5",
+  "proposer": {
+    "name": "Claude (proposer)",
+    "adapter": "cli",
+    "command": [
+      "claude",
+      "-p"
+    ],
+    "promptVia": "stdin",
+    "system": "You are a careful, concrete builder. Produce strong, complete work and improve it honestly when the Red Pen lands a real attack — but do not over-correct for objections in the noise band.",
+    "timeoutMs": 300000
+  },
+  "adversaries": [
+    {
+      "name": "Red Pen · Gemini",
+      "adapter": "openrouter",
+      "model": "google/gemini-3.5-flash",
+      "systemFile": "prompts/red-pen.md",
+      "max_tokens": 8000,
+      "timeoutMs": 300000,
+      "retries": 2
+    },
+    {
+      "name": "Red Pen · Codex",
+      "adapter": "cli",
+      "command": [
+        "codex",
+        "exec",
+        "--skip-git-repo-check"
+      ],
+      "promptVia": "stdin",
+      "systemFile": "prompts/red-pen.md",
+      "timeoutMs": 300000
+    }
+  ]
+}
